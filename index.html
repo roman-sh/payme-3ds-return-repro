@@ -13,21 +13,18 @@
     <p>Check where the hosted checkout goes when you close the 3D Secure prompt without entering the verification code.</p>
 
     <form id="sale-form" autocomplete="off">
-      <h2>What we send to PayMe</h2>
-      <p><code>POST https://live.payme.io/api/generate-sale</code></p>
-      <label for="seller-id">Seller ID <code>seller_payme_id</code></label>
-      <input id="seller-id" type="password" required autocomplete="off" spellcheck="false" autocapitalize="none">
-
-      <dl>
-        <dt>Amount <code>sale_price</code> · <code>currency</code></dt>
-        <dd>₪5.00 <code>500 ILS minor units</code></dd>
-        <dt>Checkout method <code>sale_payment_method</code></dt>
-        <dd><code>multi</code></dd>
-        <dt>Sale type <code>sale_type</code></dt>
-        <dd><code>sale</code></dd>
-        <dt>Return URL <code>sale_return_url</code></dt>
-        <dd><code id="return-url"></code></dd>
-      </dl>
+      <div class="request-preview">
+        <div id="request-line"></div>
+        <div>Content-Type: application/json</div>
+        <div class="request-body">
+          <div>{</div>
+          <div class="seller-field">
+            <label for="seller-id">"seller_payme_id":</label>
+            "<input id="seller-id" type="password" required autocomplete="off" spellcheck="false" autocapitalize="none">",
+          </div>
+          <pre id="request-fields"></pre>
+        </div>
+      </div>
 
       <p id="live-notice">This uses live PayMe checkout. Completing payment can charge ₪5.00.</p>
       <button type="submit" aria-describedby="live-notice">Create test sale</button>

@@ -1,9 +1,14 @@
 const paymeOrigin = "https://live.payme.io";
-const returnUrl = new URL("return.html", window.location.href).href;
-const salePrice = 500;
-const currency = "ILS";
-const paymentMethod = "multi";
-const saleType = "sale";
+const endpoint = `${paymeOrigin}/api/generate-sale`;
+const saleFields = {
+  sale_price: 500,
+  currency: "ILS",
+  product_name: "PayMe Google Pay 3D Secure return test",
+  transaction_id: "3ds-<generated on submit>",
+  sale_type: "sale",
+  sale_payment_method: "multi",
+  sale_return_url: new URL("return.html", window.location.href).href,
+};
 
 const form = document.querySelector("#sale-form");
 const sellerInput = document.querySelector("#seller-id");
@@ -12,7 +17,15 @@ const status = document.querySelector("#status");
 const checkout = document.querySelector("#checkout");
 const checkoutFrame = document.querySelector("#checkout-frame");
 
-document.querySelector("#return-url").textContent = returnUrl;
+const requestFields = document.querySelector("#request-fields");
+
+function showRequestFields() {
+  // The form renders the opening brace and seller ID field separately.
+  requestFields.textContent = JSON.stringify(saleFields, null, 2).replace(/^\{\n/, "");
+}
+
+document.querySelector("#request-line").textContent = `POST ${endpoint}`;
+showRequestFields();
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -32,19 +45,13 @@ form.addEventListener("submit", async (event) => {
   status.textContent = "Creating sale…";
 
   try {
-    const response = await fetch(`${paymeOrigin}/api/generate-sale`, {
+    saleFields.transaction_id = `3ds-${crypto.randomUUID()}`;
+    showRequestFields();
+
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        seller_payme_id: sellerId,
-        sale_price: salePrice,
-        currency,
-        product_name: "PayMe Google Pay 3D Secure return test",
-        transaction_id: `3ds-${crypto.randomUUID()}`,
-        sale_type: saleType,
-        sale_payment_method: paymentMethod,
-        sale_return_url: returnUrl,
-      }),
+      body: JSON.stringify({ seller_payme_id: sellerId, ...saleFields }),
     });
     const sale = await response.json().catch(() => null);
 

@@ -21,21 +21,35 @@ form {
   background: #fff;
 }
 
-label, dt { font-weight: 600; }
-label code, dt code { color: #4d596b; font-weight: normal; }
-input {
-  display: block;
-  width: 100%;
-  max-width: 24rem;
-  margin-top: .4rem;
-  border: 1px solid #7b8797;
+.request-preview {
+  padding: .85rem;
+  border: 1px solid #c3cbd5;
+  border-radius: .4rem;
+  background: #f5f7fa;
+  font: .875rem/1.6 ui-monospace, monospace;
+  overflow-wrap: anywhere;
 }
+
+.request-body { margin-top: .75rem; }
+.seller-field { padding-left: 2ch; }
+
+.request-preview input {
+  width: 18ch;
+  max-width: 100%;
+  padding: .1rem .3rem;
+  border: 1px solid #7b8797;
+  border-radius: .25rem;
+  font: inherit;
+}
+
+.request-preview pre { margin: 0; font: inherit; white-space: pre-wrap; }
+dt { font-weight: 600; }
 
 dl { display: grid; gap: .25rem 1.25rem; }
 dt:not(:first-child) { margin-top: .5rem; }
 dd { margin: 0; overflow-wrap: anywhere; }
 
-input, button { font: inherit; padding: .6rem .85rem; border-radius: .4rem; }
+button { font: inherit; padding: .6rem .85rem; border-radius: .4rem; }
 button { color: #fff; background: #174ea6; border: 1px solid transparent; }
 button:disabled { opacity: .65; }
 #status { margin-bottom: 0; }
