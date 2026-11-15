@@ -2,7 +2,13 @@
 
 [Open the HTTPS demo](https://roman-sh.github.io/payme-3ds-return-repro/).
 
-This reproduces the browser flow for a PayMe hosted Multi checkout embedded in an iframe. Use a live PayMe seller ID with Google Pay enabled and a payment method that triggers a 3D Secure code prompt. Completing payment can charge ₪5.00.
+## Observed behavior
+
+In PayMe's hosted Multi checkout embedded in an iframe, closing the Google Pay 3D Secure prompt without entering the verification code redirects the iframe to `sale_return_url`. We expected the checkout to stay open so the buyer could retry.
+
+## Reproduce
+
+Use a live PayMe seller ID with Google Pay enabled and a payment method that triggers a 3D Secure code prompt. Completing payment can charge ₪5.00.
 
 1. Enter your seller ID and select **Create test sale**.
 2. Choose **Google Pay** in the checkout and wait for the 3D Secure code prompt.
