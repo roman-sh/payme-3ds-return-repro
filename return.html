@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PayMe return URL reached</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Return URL reached</h1>
+    <p>If you see this page, PayMe redirected to the configured Return URL.</p>
+    <dl>
+      <dt>Opened in</dt>
+      <dd id="context"></dd>
+      <dt>Loaded at</dt>
+      <dd><code id="loaded-at"></code></dd>
+    </dl>
+    <script>
+      document.querySelector("#context").textContent =
+        window.self === window.top ? "Full tab" : "Checkout iframe";
+      document.querySelector("#loaded-at").textContent = new Date().toISOString();
+    </script>
+  </main>
+</body>
+</html>

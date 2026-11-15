@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PayMe Google Pay 3D Secure return test</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="checkout.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>PayMe Google Pay 3D Secure return test</h1>
+    <p>Check where the hosted checkout goes when you close the 3D Secure prompt without entering the verification code.</p>
+
+    <form id="sale-form" autocomplete="off">
+      <h2>What we send to PayMe</h2>
+      <p><code>POST https://live.payme.io/api/generate-sale</code></p>
+      <label for="seller-id">Seller ID <code>seller_payme_id</code></label>
+      <input id="seller-id" type="password" required autocomplete="off" spellcheck="false" autocapitalize="none">
+
+      <dl>
+        <dt>Amount <code>sale_price</code> · <code>currency</code></dt>
+        <dd>₪5.00 <code>500 ILS minor units</code></dd>
+        <dt>Checkout method <code>sale_payment_method</code></dt>
+        <dd><code>multi</code></dd>
+        <dt>Sale type <code>sale_type</code></dt>
+        <dd><code>sale</code></dd>
+        <dt>Return URL <code>sale_return_url</code></dt>
+        <dd><code id="return-url"></code></dd>
+      </dl>
+
+      <p id="live-notice">This uses live PayMe checkout. Completing payment can charge ₪5.00.</p>
+      <button type="submit" aria-describedby="live-notice">Create test sale</button>
+      <p id="status" role="status"></p>
+    </form>
+
+    <section id="checkout" aria-labelledby="checkout-heading" hidden>
+      <h2 id="checkout-heading">PayMe hosted checkout</h2>
+      <ol>
+        <li>Choose Google Pay and proceed to the 3D Secure code prompt.</li>
+        <li>Close the prompt without entering the code.</li>
+        <li>Check whether the demo’s return page replaces the checkout.</li>
+      </ol>
+      <iframe id="checkout-frame" title="PayMe hosted checkout" allow="payment"></iframe>
+    </section>
+  </main>
+</body>
+</html>
